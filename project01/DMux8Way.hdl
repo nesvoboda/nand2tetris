@@ -16,39 +16,7 @@ CHIP DMux8Way {
     OUT a, b, c, d, e, f, g, h;
 
     PARTS:
-    Not(in=sel[2], out=Notsel2);
-
-    DMux4Way(in=in, sel[0]=sel[0], sel[1]=sel[1], a=a1,b=b1,c=c1,d=d1);
-    DMux4Way(in=in, sel[0]=sel[0], sel[1]=sel[1], a=a2,b=b2,c=c2,d=d2);
-
-    And16(
-        a[0] = a1,
-        a[1] = b1,
-        a[2] = c1,
-        a[3] = d1,
-
-        a[4] = a2,
-        a[5] = b2,
-        a[6] = c2,
-        a[7] = d2,
-
-        b[0] = Notsel2,
-        b[1] = Notsel2,
-        b[2] = Notsel2,
-        b[3] = Notsel2,
-        
-        b[4] = sel[2],
-        b[5] = sel[2],
-        b[6] = sel[2],
-        b[7] = sel[2],
-
-        out[0] = a,
-        out[1] = b,
-        out[2] = c,
-        out[3] = d,
-        out[4] = e,
-        out[5] = f,
-        out[6] = g,
-        out[7] = h
-    );
+    DMux(in=in, sel=sel[2], a=internalA, b=internalB);
+    DMux4Way(in=internalA, sel[0]=sel[0], sel[1]=sel[1], a=a, b=b, c=c, d=d);
+    DMux4Way(in=internalB, sel[0]=sel[0], sel[1]=sel[1], a=e, b=f, c=g, d=h);
 }
